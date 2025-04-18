@@ -60,3 +60,17 @@
 /drush
 /drupal.phar
 /drupal
+/.csslintrc
+/.editorconfig
+/.eslintignore
+/.eslintrc.json
+/.gitattributes
+/.ht.router.php
+/.htaccess
+/INSTALL.txt
+/README.md
+/autoload.php
+/example.gitignore
+/index.php
+/robots.txt
+/update.php
