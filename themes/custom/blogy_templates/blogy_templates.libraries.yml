@@ -1,0 +1,79 @@
+style:
+  css:
+    theme:
+      build/css/main.style.css: {}
+  js:
+    build/js/main.script.js: {}
+  dependencies:
+    - core/drupal
+
+drupal.ajax:
+  js:
+    src/js/overrides/ajax.js: {}
+  dependencies:
+    - core/drupal
+
+drupal.checkbox:
+  js:
+    src/js/overrides/checkbox.js: {}
+  dependencies:
+    - core/drupal
+
+drupal.dialog:
+  js:
+    src/js/overrides/dialog.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+
+drupal.dialog.ajax:
+  js:
+    src/js/overrides/dialog.ajax.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupal.ajax
+
+drupal.message:
+  js:
+    src/js/overrides/message.js: {}
+
+drupal.progress:
+  js:
+    src/js/overrides/progress.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+
+drupal.text:
+  js:
+    src/js/overrides/text.js: {}
+  dependencies:
+    - core/jquery
+    - core/once
+    - core/drupal
+
+jquery.validate:
+  js:
+    src/js/overrides/validate.js: {}
+  dependencies:
+    - core/jquery
+
+global-styling:
+  version: 1.x
+  css:
+    theme:
+      https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap: {}
+      build/css/custom/main.css: {}
+      build/css/vendor/bootstrap-icons/bootstrap-icons.css: {}
+      build/css/vendor/aos/aos.css: {}
+      build/css/vendor/swiper/swiper-bundle.min.css: {}
+      build/css/vendor/glightbox/css/glightbox.min.css: {}
+  js:
+    build/css/vendor/bootstrap/js/bootstrap.bundle.min.js: {}
+    build/css/vendor/aos/aos.js: {}
+    build/css/vendor/swiper/swiper-bundle.min.js: {}
+    build/css/vendor/purecounter/purecounter_vanilla.js: {}
+    build/css/vendor/glightbox/js/glightbox.min.js: {}
+    build/js/main.js: {}

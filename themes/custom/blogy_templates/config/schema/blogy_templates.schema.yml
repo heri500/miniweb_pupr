@@ -1,0 +1,5 @@
+# Schema for the configuration files of the blogy_templates theme.
+
+blogy_templates.settings:
+  type: theme_settings
+  label: 'blogy_templates settings'

@@ -1,0 +1,18 @@
+{#
+/**
+ * @file
+ * Theme override for a breadcrumb trail.
+ *
+ * Available variables:
+ * - breadcrumb: Breadcrumb trail items.
+ */
+#}
+<div class="page-title page-title-breadcrumb">
+  <div class="breadcrumbs">
+    {%
+      include 'radix:breadcrumb' with {
+      breadcrumb,
+    }
+    %}
+  </div>
+</div>
