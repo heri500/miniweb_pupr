@@ -1,0 +1,8 @@
+name: 'Latest Post'
+type: module
+description: 'Provides a block that loads latest post of Bahan Ajar Content.'
+core_version_requirement: ^10 || ^11
+package: Custom
+dependencies:
+  - views
+  - frontpage_main

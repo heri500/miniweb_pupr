@@ -1,0 +1,76 @@
+<?php
+use Drupal\views\Views;
+
+/*
+ * Get raw values from a view result.
+ *
+ * @param string $view_id
+ * @param string $display_id
+ *
+ * @return array
+ */
+function get_view_result_values(string $view_id, string $display_id = 'default'): array
+{
+  $view = Views::getView($view_id);
+  $results = [];
+
+  if ($view && $view->access($display_id)) {
+    $view->setDisplay($display_id);
+    $view->preExecute();
+    $view->execute();
+
+    foreach ($view->result as $row) {
+      if (isset($row->_entity)) {
+        $entity = $row->_entity;
+        $term_names = [];
+        if ($entity->hasField('field_kategori') && !$entity->get('field_kategori')->isEmpty()) {
+          foreach ($entity->get('field_kategori')->referencedEntities() as $term) {
+            $term_names[] = $term->label(); // or $term->getName()
+          }
+        }
+        $link_url = '';
+        $link_title = '';
+        if ($entity->hasField('field_link_youtube') && !$entity->get('field_link_youtube')->isEmpty()) {
+          $link_item = $entity->get('field_link_youtube')->first();
+          $link_url = $link_item->getUrl()->toString(); // Full URL
+          $link_title = $link_item->title; // Optional title (can be NULL)
+        }
+        $file_url = '';
+
+        if ($entity->hasField('field_upload_powerpoint') && !$entity->get('field_upload_powerpoint')->isEmpty()) {
+          $file = $entity->get('field_upload_powerpoint')->first()->entity;
+          if ($file) {
+            $file_url = \Drupal::service('file_url_generator')->generateAbsoluteString($file->getFileUri());
+          }
+        }
+        $created_timestamp = $entity->getCreatedTime(); // Returns UNIX timestamp
+        $created_date = \Drupal::service('date.formatter')->format($created_timestamp, 'custom', 'd M Y');
+        $node_url = $entity->toUrl()->toString();
+        $author = $entity->getOwner(); // Returns a User entity
+        $username = $author->getDisplayName();
+        if ($author->hasField('user_picture') && !$author->get('user_picture')->isEmpty()) {
+          $file = $author->get('user_picture')->entity;
+          $picture_url = \Drupal::service('file_url_generator')->generateAbsoluteString($file->getFileUri());
+        } else {
+          $picture_url = NULL; // or your default image path
+        }
+        $results[] = [
+          'title' => $entity->label(),
+          'nid' => $entity->id(),
+          'image' => $view->field['field_image']->advancedRender($row)->jsonSerialize(),
+          'summary' => $entity->get('body')->summary,
+          'kategori' => $term_names[0],
+          'link_youtube' => $link_url,
+          'link_powerpoint' => $file_url,
+          'post_date' => $created_date,
+          'node_link' => $node_url,
+          'author' => $username,
+          'author_image' => $picture_url,
+          // Add more fields as needed
+        ];
+      }
+    }
+  }
+
+  return $results;
+}

@@ -96,6 +96,9 @@
       <path value="$PROJECT_DIR$/core/modules/package_manager/tests/fixtures/fake_site/vendor/drupal/core-recommended" />
       <path value="$PROJECT_DIR$/core/modules/package_manager/tests/fixtures/fake_site/vendor/drupal/core-dev" />
       <path value="$PROJECT_DIR$/core/modules/package_manager/tests/fixtures/fake_site/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/event-manager" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/common" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/persistence" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2">
