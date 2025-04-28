@@ -4,9 +4,146 @@
  * @file
  * Theme functions.
  */
+use Drupal\views\Views;
+use Drupal\file\Entity\File;
+use Drupal\Core\Url;
 
 // Include all files from the includes directory.
 $includes_path = dirname(__FILE__) . '/includes/*.theme';
 foreach (glob($includes_path) as $file) {
   require_once dirname(__FILE__) . '/includes/' . basename($file);
 }
+
+function blogy_templates_preprocess_node(&$variables) {
+  // Only add to specific content type, or all nodes
+  $variables['search_form'] = \Drupal::formBuilder()->getForm('Drupal\search\Form\SearchBlockForm');
+
+  // Load taxonomy terms from the vocabulary (replace 'kategori' with your vocabulary machine name)
+  $terms = \Drupal::entityTypeManager()
+    ->getStorage('taxonomy_term')
+    ->loadTree('kategori');  // Replace 'kategori' with the machine name of your vocabulary.
+
+  $term_counts = [];
+  foreach ($terms as $term) {
+    // Create a query to count nodes with this term
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'bahan_ajar_online') // Replace 'article' with your content type machine name.
+      ->condition('field_kategori', $term->tid) // Replace 'field_kategori' with your field name.
+      ->accessCheck(FALSE) // Add this to disable access checks
+      ->count()
+      ->execute();
+
+    // Store the count for each term
+    $term_counts[$term->tid] = $query;
+  }
+  // Pass the terms to the node template
+  $variables['all_kategori_terms'] = $terms;
+  $variables['term_counts'] = $term_counts;
+
+  // Load the view.
+  $view = Views::getView('latest_post_bahan_ajar');
+
+  if ($view) {
+    $view->setDisplay('default');
+    $view->execute();
+
+    $results = $view->result;
+
+    $latest_posts = [];
+
+    foreach ($results as $row) {
+      if (isset($row->_entity)) {
+        $node = $row->_entity;
+
+        // Get node basic info.
+        $id = $node->id();
+        $title = $node->label();
+        $url = $node->toUrl()->toString();
+
+        // Get created date.
+        $created = \Drupal::service('date.formatter')->format($node->getCreatedTime(), 'custom', 'd M Y');
+
+        // Get field_kategori (taxonomy term reference).
+        $kategori_name = '';
+        $kategori_url = '';
+        if (!$node->get('field_kategori')->isEmpty()) {
+          $term = $node->get('field_kategori')->entity;
+          if ($term) {
+            $kategori_name = $term->label();
+            $kategori_url = $term->toUrl()->toString();
+          }
+        }
+
+        // Get field_image (image file url) using file_url_generator.
+        $image_url = '';
+        if (!$node->get('field_image')->isEmpty()) {
+          $file = $node->get('field_image')->entity;
+          if ($file instanceof File) {
+            $image_url = \Drupal::service('file_url_generator')->generateAbsoluteString($file->getFileUri());
+          }
+        }
+
+        // Collect into array.
+        $latest_posts[] = [
+          'id' => $id,
+          'title' => $title,
+          'url' => $url,
+          'created' => $created,
+          'kategori_name' => $kategori_name,
+          'kategori_url' => $kategori_url,
+          'image_url' => $image_url,
+        ];
+      }
+    }
+
+    // Pass to twig variable.
+    $variables['latest_post_bahanajar'] = $latest_posts;
+  }
+  else {
+    $variables['latest_post_bahanajar'] = [];
+  }
+
+  // Handle field_upload_powerpoint.
+  if (!$variables['node']->get('field_upload_powerpoint')->isEmpty()) {
+    $files = $variables['node']->get('field_upload_powerpoint')->referencedEntities();
+    $powerpoint_links = [];
+
+    foreach ($files as $file) {
+      $url = \Drupal::service('file_url_generator')->generateAbsoluteString($file->getFileUri());
+      $filename = $file->getFilename();
+
+      $powerpoint_links[] = [
+        'url' => $url,
+        'filename' => $filename,
+      ];
+    }
+
+    $variables['powerpoint_links'] = $powerpoint_links;
+  }
+  else {
+    $variables['powerpoint_links'] = [];
+  }
+
+  // Handle field_lampiran_soal_latihan (XLS) - force download.
+  if (!$variables['node']->get('field_lampiran_soal_latihan')->isEmpty()) {
+    $files = $variables['node']->get('field_lampiran_soal_latihan')->referencedEntities();
+    $soal_latihan_links = [];
+
+    foreach ($files as $file) {
+      $url = \Drupal::service('file_url_generator')->generateAbsoluteString($file->getFileUri());
+      $filename = $file->getFilename();
+
+      $soal_latihan_links[] = [
+        'url' => $url,
+        'filename' => $filename,
+      ];
+    }
+
+    $variables['soal_latihan_links'] = $soal_latihan_links;
+  }
+  else {
+    $variables['soal_latihan_links'] = [];
+  }
+
+}
+

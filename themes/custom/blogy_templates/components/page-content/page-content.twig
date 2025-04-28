@@ -49,11 +49,9 @@
 <main{{content_attributes.addClass(page_main_classes)}}>
 	{% if page.header %}
 		<header id="header" class="header position-relative">
-			<div class="nav-wrap">
 				{% block page_header %}
 					{{ page.header }}
 				{% endblock %}
-			</div>
 		</header>
 	{% endif %}
 

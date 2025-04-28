@@ -1,0 +1,25 @@
+{#
+/**
+ * @file
+ * Template for a 'form' element.
+ *
+ * Available variables
+ * - attributes: A list of HTML attributes for the wrapper element.
+ * - children: The child elements of the form.
+ *
+ * @see template_preprocess_form()
+ *
+ * @ingroup themeable
+ */
+#}
+{%
+  set form_classes = [
+   'search-form', 'ms-4'
+  ]
+%}
+<div class="d-flex align-items-center">
+<form {{ form_attributes.addClass(form_classes) }}class="search-form ms-4">
+    {{ children }}
+    <button type="submit" class="btn"><i class="bi bi-search"></i></button>
+</form>
+</div>

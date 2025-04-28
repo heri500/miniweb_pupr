@@ -226,7 +226,7 @@ h6 {
 .header {
   transition: all 0.5s;
   z-index: 997;
-  padding: 20px 0;
+  padding: 0;
 }
 
 .header .top-row {
@@ -243,11 +243,11 @@ h6 {
 }
 
 .header .top-row .logo .sitename {
-  font-size: 32px;
-  font-weight: 400;
-  color: var(--heading-color);
-  font-family: var(--heading-font);
-  margin: 0;
+  font-size: 32px !important;
+  font-weight: 400 !important;
+  color: var(--heading-color) !important;
+  font-family: var(--heading-font) !important;
+  margin: 0 !important;
 }
 
 .header .top-row .logo span {
@@ -303,17 +303,17 @@ h6 {
 }
 
 .header .search-form button {
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  border: 0;
-  background: none;
-  font-size: 16px;
-  padding: 0 15px;
-  margin: 0;
-  color: var(--heading-color);
-  transition: 0.3s;
+  position: absolute !important;
+  right: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  border: 0 !important;
+  background: none !important;
+  font-size: 16px !important;
+  padding: 0 15px !important;
+  margin: 0 !important;
+  color: var(--heading-color) !important;
+  transition: 0.3s !important;
 }
 
 .header .search-form button:hover {
@@ -3624,9 +3624,6 @@ section,
 main.py-5 {
   padding-top: 0 !important;
 }
-.header{
-  padding : 0 !important;
-}
 .page-title-breadcrumb{
   padding: 30px 0 0 !important;
 }
@@ -3646,13 +3643,6 @@ main.py-5 {
 }
 .form--search-block-form input.form-submit{
   display: none !important;
-}
-.form--search-block-form {
-  position: relative !important;
-  top: 10px !important;
-}
-nav.navbar.navbar-expand-lg{
-  padding: 10px 0 0 !important;
 }
 .page-sub-title .title-wrapper{
   max-width: 800px;
@@ -3678,7 +3668,53 @@ nav .social-links a:hover {
   color: var(--accent-color);
 }
 
-nav .social-links{
-  padding-right: 15px;
-  padding-top: 6px;
+nav.navbar.navbar-expand-lg.justify-content-between{
+  padding: 0;
+}
+.search-form #edit-actions, .search-form #edit-actions--2, .search-form [id^="edit-actions"] {
+  display: none !important;
+}
+.breadcrumb .breadcrumb-item:first-child a { /* Select the first breadcrumb link (home) */
+  background-image: url('images/home-icon.png'); /* Replace with your icon image path */
+  background-repeat: no-repeat;
+  background-size: 14px 14px;
+  background-position: left top;
+  padding-left: 22px;
+}
+#header-top.header {
+  transition: all 0.5s;
+  z-index: 997;
+  padding: 20px 0 0 !important;
+}
+.search-widget .form-search.form-control{
+  border: 0;
+}
+.search-widget .form-search.form-control:focus{
+  border: 0;
+  box-shadow: none !important;
+}
+.recent-posts-widget .tags{
+  padding: 20px 0;
+  border-top: 1px solid #999;
+  margin-top: 20px;
+}
+.recent-posts-widget .tags .tag{
+  background:
+    color-mix(in srgb, var(--accent-color), transparent 90%);
+  color: var(--accent-color);
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.recent-posts-widget .tags .tag:hover{
+  background: var(--accent-color);
+  color: var(--contrast-color);
+}
+.sidebar .search-form{
+  width: 100% !important;
+}
+.sidebar .search-form.ms-4{
+  margin-left: 0 !important;
 }

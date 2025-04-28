@@ -20,6 +20,7 @@
         "drupal/core-composer-scaffold": "^11.1",
         "drupal/core-project-message": "^11.1",
         "drupal/core-recommended": "^11.1",
+        "drupal/current_page_crumb": "^1.6",
         "drupal/devel": "^5.2",
         "drupal/radix": "^6.0"
     },

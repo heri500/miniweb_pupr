@@ -29,14 +29,11 @@ function get_view_result_values(string $view_id, string $display_id = 'default')
           }
         }
         $link_url = '';
-        $link_title = '';
         if ($entity->hasField('field_link_youtube') && !$entity->get('field_link_youtube')->isEmpty()) {
           $link_item = $entity->get('field_link_youtube')->first();
           $link_url = $link_item->getUrl()->toString(); // Full URL
-          $link_title = $link_item->title; // Optional title (can be NULL)
         }
         $file_url = '';
-
         if ($entity->hasField('field_upload_powerpoint') && !$entity->get('field_upload_powerpoint')->isEmpty()) {
           $file = $entity->get('field_upload_powerpoint')->first()->entity;
           if ($file) {

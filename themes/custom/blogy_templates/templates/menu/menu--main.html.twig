@@ -18,10 +18,13 @@
  *   - in_active_trail: TRUE if the link is in the active trail.
  */
 #}
-<div class="container d-flex justify-content-center position-relative">
-  <nav id="navmenu" class="navmenu">
-    {%
-      include 'radix:nav'
-    %}
-  </nav>
+<div class="nav-wrap">
+  <div class="container d-flex justify-content-center position-relative">
+    <nav id="navmenu" class="navmenu">
+      {%
+        include 'radix:nav'
+      %}
+      <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+    </nav>
+  </div>
 </div>
