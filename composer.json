@@ -22,6 +22,7 @@
         "drupal/core-recommended": "^11.1",
         "drupal/current_page_crumb": "^1.6",
         "drupal/devel": "^5.2",
+        "drupal/pathauto": "^1.13",
         "drupal/radix": "^6.0"
     },
     "conflict": {

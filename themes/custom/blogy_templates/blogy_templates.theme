@@ -104,7 +104,7 @@ function blogy_templates_preprocess_node(&$variables) {
   }
 
   // Handle field_upload_powerpoint.
-  if (!$variables['node']->get('field_upload_powerpoint')->isEmpty()) {
+  if (isset($variables['node']->field_upload_powerpoint) && !$variables['node']->get('field_upload_powerpoint')->isEmpty()) {
     $files = $variables['node']->get('field_upload_powerpoint')->referencedEntities();
     $powerpoint_links = [];
 
@@ -123,9 +123,8 @@ function blogy_templates_preprocess_node(&$variables) {
   else {
     $variables['powerpoint_links'] = [];
   }
-
   // Handle field_lampiran_soal_latihan (XLS) - force download.
-  if (!$variables['node']->get('field_lampiran_soal_latihan')->isEmpty()) {
+  if (isset($variables['node']->field_lampiran_soal_latihan) && !$variables['node']->get('field_lampiran_soal_latihan')->isEmpty()) {
     $files = $variables['node']->get('field_lampiran_soal_latihan')->referencedEntities();
     $soal_latihan_links = [];
 

@@ -1,0 +1,35 @@
+{#
+/**
+ * @file
+ * Template to use to view the list of article, I'm prefer using template to view the list.
+ *
+ * Available variables:
+ * - items: An array of articles with:
+ *   - title: The title of the article.
+ *   - url: The URL to the article.
+ * - count: The total number of displayed articles.
+ */
+#}
+{% if items %}
+  <div class="article-list">
+    <ul>
+      {% for item in items %}
+        <li>
+          <h3>{{ link(item.title, item.url) }}</h3>
+        </li>
+      {% endfor %}
+    </ul>
+
+    {% if count > 0 %}
+      <p class="article-count">
+        {% trans %}
+          There is {{ count }} article.
+        {% plural count %}
+          There are {{ count }} articles.
+        {% endtrans %}
+      </p>
+    {% endif %}
+  </div>
+{% else %}
+  <p>{{ 'No articles available.'|t }}</p>
+{% endif %}

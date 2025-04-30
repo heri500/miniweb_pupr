@@ -1,0 +1,37 @@
+<?php
+
+/**
+ * @file
+ * Contains rr_example.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ * Just add a description for this module
+ */
+function rr_example_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.rr_example':
+      $output = '';
+      $output .= '<h3>' . t('About rr_example Module') . '</h3>';
+      $output .= '<p>' . t('Example module to views selected articles.') . '</p>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_theme().
+ * define theme to be use for the blocks (rr_example_article_list.html.twig)
+ */
+function rr_example_theme() {
+  return [
+    'rr_example_article_list' => [
+      'variables' => [
+        'items' => [],
+        'count' => 0,
+      ],
+    ],
+  ];
+}

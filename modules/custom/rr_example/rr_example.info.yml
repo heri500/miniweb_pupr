@@ -1,0 +1,5 @@
+name: 'RR Example'
+type: module
+description: 'Provides a block to view selected articles for reading room test.'
+core_version_requirement: ^10 || ^11
+package: Custom
